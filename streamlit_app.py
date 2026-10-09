@@ -5,7 +5,9 @@ SDG 4: Quality Education | SDG 8: Decent Work & Economic Growth
 """
 
 import re
+import io
 import streamlit as st
+import pdfplumber
 
 # ─────────────────────────────────────────────────────────
 # PAGE CONFIG
@@ -338,9 +340,15 @@ with col_left:
         label_visibility="collapsed",
     )
 
-    uploaded_file = st.file_uploader("Or upload a .txt resume file", type=["txt"])
+    uploaded_file = st.file_uploader("Or upload your resume (.pdf or .txt)", type=["pdf", "txt"])
     if uploaded_file:
-        resume_input = uploaded_file.read().decode("utf-8")
+        if uploaded_file.name.endswith(".pdf"):
+            with pdfplumber.open(io.BytesIO(uploaded_file.read())) as pdf:
+                resume_input = "\n".join(
+                    page.extract_text() or "" for page in pdf.pages
+                )
+        else:
+            resume_input = uploaded_file.read().decode("utf-8")
         st.success(f"✅ Loaded: {uploaded_file.name}")
 
     st.markdown("### 🏢 Job Description")
