@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Resume & Skill Gap Matcher</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="10" fill="#6366f1"/>
+            <path d="M10 26L18 10L26 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 21h10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="logo-text">SkillMatch <span class="logo-ai">AI</span></span>
+      </div>
+      <nav class="nav">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#analyze">Analyze</a>
+        <a href="#sdg">SDG Impact</a>
+      </nav>
+      <div class="header-badges">
+        <span class="badge badge-sdg4">SDG 4</span>
+        <span class="badge badge-sdg8">SDG 8</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-tag">Powered by NLP &amp; Machine Learning</div>
+      <h1 class="hero-title">
+        AI-Powered Resume<br/>
+        <span class="gradient-text">Skill Gap Matcher</span>
+      </h1>
+      <p class="hero-sub">
+        Upload your resume and a job description. Our AI extracts your skills,
+        compares them to job requirements, and delivers a personalized learning
+        roadmap — bridging the gap to your dream career.
+      </p>
+      <div class="hero-cta">
+        <a href="#analyze" class="btn btn-primary">Analyze My Resume</a>
+        <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">94%</span><span class="stat-label">Match Accuracy</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Skills Tracked</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Job Domains</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-label">Process</div>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Three intelligent steps from resume to roadmap</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">📄</div>
+          <h3>Upload & Parse</h3>
+          <p>Paste your resume text or upload a .txt file. Our NLP engine extracts skills, experience, and keywords automatically.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">🔍</div>
+          <h3>AI Analysis</h3>
+          <p>Our ML model cross-references your skills against the job description using semantic similarity and skill taxonomy matching.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">🗺️</div>
+          <h3>Personalized Roadmap</h3>
+          <p>Receive a prioritized list of skill gaps with curated free learning resources, timelines, and a match score.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYZE SECTION -->
+  <section class="analyze-section" id="analyze">
+    <div class="container">
+      <div class="section-label">Tool</div>
+      <h2 class="section-title">Analyze Your Resume</h2>
+      <p class="section-sub">Paste your resume and the job description below</p>
+
+      <div class="analyze-grid">
+        <!-- INPUT PANEL -->
+        <div class="input-panel">
+          <div class="panel-card">
+            <div class="tabs" id="inputTabs">
+              <button class="tab active" data-tab="paste">Paste Resume</button>
+              <button class="tab" data-tab="upload">Upload File</button>
+            </div>
+
+            <!-- Paste Mode -->
+            <div class="tab-content active" id="tab-paste">
+              <label class="field-label">Your Resume Text</label>
+              <textarea id="resumeText" class="textarea" rows="10"
+                placeholder="Paste your resume content here...
+
+Example:
+John Doe | Software Engineer
+Skills: Python, Machine Learning, TensorFlow, SQL, React, REST APIs
+Experience: 3 years at ABC Corp - built ML pipelines, NLP models, data dashboards
+Education: B.Sc. Computer Science, 2020"></textarea>
+            </div>
+
+            <!-- Upload Mode -->
+            <div class="tab-content" id="tab-upload">
+              <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📂</div>
+                <p><strong>Drop your resume here</strong></p>
+                <p class="upload-hint">Supports .txt files · Max 2MB</p>
+                <input type="file" id="fileInput" accept=".txt" class="file-input"/>
+                <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">Browse File</button>
+              </div>
+              <div class="upload-preview" id="uploadPreview" style="display:none">
+                <span class="file-icon">📄</span>
+                <span id="fileName" class="file-name"></span>
+                <button class="btn-remove" onclick="clearFile()">✕</button>
+              </div>
+            </div>
+
+            <!-- Job Description -->
+            <div style="margin-top:24px">
+              <label class="field-label">Job Description / Target Role</label>
+              <textarea id="jobDesc" class="textarea" rows="8"
+                placeholder="Paste the job description here...
+
+Example:
+We are looking for a Senior Data Scientist with:
+- 4+ years Python, pandas, scikit-learn
+- Experience with deep learning (PyTorch or TensorFlow)
+- NLP and transformer models (BERT, GPT)
+- Cloud platforms: AWS or GCP
+- Strong SQL and data warehousing skills
+- Communication and presentation abilities"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="field-label">Target Job Role</label>
+                <select id="jobRole" class="select">
+                  <option value="">Select a domain...</option>
+                  <option value="data_science">Data Science / ML</option>
+                  <option value="web_dev">Web Development</option>
+                  <option value="devops">DevOps / Cloud</option>
+                  <option value="cybersecurity">Cybersecurity</option>
+                  <option value="product">Product Management</option>
+                  <option value="design">UI/UX Design</option>
+                  <option value="mobile">Mobile Development</option>
+                  <option value="embedded">Embedded / IoT</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label">Experience Level</label>
+                <select id="expLevel" class="select">
+                  <option value="entry">Entry Level (0–2 yrs)</option>
+                  <option value="mid" selected>Mid Level (2–5 yrs)</option>
+                  <option value="senior">Senior (5+ yrs)</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="analyzeBtn" onclick="analyzeResume()">
+              <span id="btnText">🚀 Analyze My Skills</span>
+              <span id="btnLoader" class="btn-loader" style="display:none">
+                <span class="spinner"></span> Analyzing...
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- RESULTS PANEL -->
+        <div class="results-panel" id="resultsPanel">
+          <div class="results-placeholder" id="resultsPlaceholder">
+            <div class="placeholder-icon">✨</div>
+            <h3>Your Analysis Will Appear Here</h3>
+            <p>Fill in your resume and job description, then click Analyze.</p>
+          </div>
+          <div id="resultsContent" style="display:none">
+            <!-- Match Score -->
+            <div class="match-score-card" id="scoreCard">
+              <div class="score-ring-wrapper">
+                <svg class="score-ring" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="50" class="ring-bg"/>
+                  <circle cx="60" cy="60" r="50" class="ring-fill" id="ringFill"
+                    stroke-dasharray="314" stroke-dashoffset="314"/>
+                </svg>
+                <div class="score-center">
+                  <span class="score-number" id="scoreNumber">0%</span>
+                  <span class="score-label">Match</span>
+                </div>
+              </div>
+              <div class="score-info">
+                <h3 id="scoreTitle">Analyzing...</h3>
+                <p id="scoreDesc" class="score-desc"></p>
+                <div class="score-badges" id="scoreBadges"></div>
+              </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="result-tabs" id="resultTabs">
+              <button class="result-tab active" data-rtab="skills">Skills Analysis</button>
+              <button class="result-tab" data-rtab="gaps">Skill Gaps</button>
+              <button class="result-tab" data-rtab="roadmap">Learning Roadmap</button>
+            </div>
+
+            <!-- Skills Analysis -->
+            <div class="result-tab-content active" id="rtab-skills">
+              <div class="skills-columns">
+                <div>
+                  <h4 class="skills-col-title matched">✅ Matched Skills</h4>
+                  <div id="matchedSkills" class="skills-list"></div>
+                </div>
+                <div>
+                  <h4 class="skills-col-title missing">❌ Missing Skills</h4>
+                  <div id="missingSkills" class="skills-list"></div>
+                </div>
+              </div>
+              <div style="margin-top:20px">
+                <h4 class="skills-col-title">📌 Your Additional Skills</h4>
+                <div id="extraSkills" class="skills-list skills-list-row"></div>
+              </div>
+            </div>
+
+            <!-- Skill Gaps -->
+            <div class="result-tab-content" id="rtab-gaps">
+              <div id="gapsList" class="gaps-list"></div>
+            </div>
+
+            <!-- Roadmap -->
+            <div class="result-tab-content" id="rtab-roadmap">
+              <div id="roadmapList" class="roadmap-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SDG IMPACT -->
+  <section class="sdg-section" id="sdg">
+    <div class="container">
+      <div class="section-label">Mission</div>
+      <h2 class="section-title">Aligned with Global Goals</h2>
+      <div class="sdg-grid">
+        <div class="sdg-card sdg4">
+          <div class="sdg-header">
+            <div class="sdg-badge">SDG 4</div>
+            <div class="sdg-goal">Quality Education</div>
+          </div>
+          <h3>Democratizing Skills Education</h3>
+          <p>By identifying skill gaps and connecting learners to free, high-quality resources (Coursera, edX, Khan Academy, YouTube), we lower the barrier to education regardless of background or income.</p>
+          <ul class="sdg-list">
+            <li>Free learning resource recommendations</li>
+            <li>Personalized, competency-based roadmaps</li>
+            <li>Support for lifelong learning</li>
+          </ul>
+        </div>
+        <div class="sdg-card sdg8">
+          <div class="sdg-header">
+            <div class="sdg-badge">SDG 8</div>
+            <div class="sdg-goal">Decent Work & Economic Growth</div>
+          </div>
+          <h3>Connecting Talent to Opportunity</h3>
+          <p>Bridging the gap between job seekers' current skills and market demands directly supports employment, reduces structural unemployment, and drives inclusive economic growth.</p>
+          <ul class="sdg-list">
+            <li>Reduces skill mismatch in labor markets</li>
+            <li>Improves hiring outcomes for candidates</li>
+            <li>Supports upskilling for better wages</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">SkillMatch <span class="logo-ai">AI</span></div>
+      <p class="footer-text">Contributing to UN Sustainable Development Goals 4 &amp; 8 · Built with Python, Flask &amp; NLP</p>
+      <div class="footer-badges">
+        <span class="badge badge-sdg4">SDG 4 · Quality Education</span>
+        <span class="badge badge-sdg8">SDG 8 · Decent Work</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
